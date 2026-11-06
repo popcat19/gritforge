@@ -47,4 +47,4 @@ New device: clone gritforge next to gridforge, then `bun install`.
 ## Deploy
 
 Remote: GitHub `popcat19/gritforge`. Push to `main` deploys `site/` via `.github/workflows/pages.yml`.
-CI has no `vendor/gridforge`. Build into `site/` locally and commit, or vendor the kernel before CI builds.
+CI has no ../gridforge checkout. Build into `site/` locally and commit, or vendor the kernel before CI builds.
