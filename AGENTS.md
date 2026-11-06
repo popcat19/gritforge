@@ -8,8 +8,8 @@ Purpose: disposable LLM-built prototype of the gridforge idea.
 |------|-------------|
 | `context.md` | rules and one-line purpose per source file |
 | `src/kernel.ts` | gridforge time re-export, PPQ 960 |
-| `~/syncthing-shared/gridforge/ideas/vision.md` | the idea this prototype tests (read only) |
-| `~/syncthing-shared/gridforge-studio-slots.md` | Studio slot and mod contract |
+| `~/gridforge/ideas/vision.md` | the idea this prototype tests (read only) |
+| `~/gridforge-studio-slots.md` | Studio slot and mod contract |
 
 ## Build
 
@@ -23,7 +23,7 @@ bun run render
 ## Source layout
 
 ```
-src/kernel.ts      # re-export from vendor/gridforge (symlink to ~/syncthing-shared/gridforge)
+src/kernel.ts      # re-export from vendor/gridforge (symlink to ~/gridforge)
 src/pattern.ts     # immutable Pattern and Note ops, ticks
 src/schedule.ts    # pattern to sample events via kernel
 src/render.ts      # sine voice, 16-bit WAV
@@ -32,7 +32,7 @@ src/render-cli.ts  # demo chord to out.wav
 
 ## Conventions
 
-- `~/syncthing-shared/gridforge` is hand-written. Read only. Never edit, stage, or commit there.
+- `~/gridforge` is hand-written. Read only. Never edit, stage, or commit there.
 - Time is integer ticks at 960 PPQ. Convert only in `schedule.ts` via kernel.
 - Ops are pure. Return new values. No mutation.
 - One kernel-backed slice per round. Tests first.
@@ -42,7 +42,4 @@ src/render-cli.ts  # demo chord to out.wav
 
 ## Sync
 
-Repo lives in `~/syncthing-shared/gritforge`. No home symlink. Work in the shared path.
-Syncthing ignores `.git`, `node_modules`, `vendor`, `out.wav` (root `.stignore`).
-New device: `ln -s <path-to-gridforge> vendor/gridforge && bun install`.
-Git history stays on one device. Push to a remote before relying on it.
+New device: clone, then `ln -s <path-to-gridforge> vendor/gridforge && bun install`.
