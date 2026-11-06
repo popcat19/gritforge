@@ -23,7 +23,7 @@ bun run render
 ## Source layout
 
 ```
-src/kernel.ts      # re-export from ../../gridforge/time.ts
+src/kernel.ts      # re-export from vendor/gridforge (symlink to ~/gridforge)
 src/pattern.ts     # immutable Pattern and Note ops, ticks
 src/schedule.ts    # pattern to sample events via kernel
 src/render.ts      # sine voice, 16-bit WAV
@@ -39,3 +39,10 @@ src/render-cli.ts  # demo chord to out.wav
 - No layout until the user picks one. UI follows PMD at `~/project-minimalist-design`.
 - Findings go to the docs as decisions. Code never merges into gridforge.
 - Dev rules: dev-mini. Commits: `type(scope): verb summary`, lowercase, no period.
+
+## Sync
+
+Repo lives in `~/syncthing-shared/gritforge`. `~/gritforge` is a symlink.
+Syncthing ignores `.git`, `node_modules`, `vendor`, `out.wav` (root `.stignore`).
+New device: `ln -s <path-to-gridforge> vendor/gridforge && bun install`.
+Git history stays on one device. Push to a remote before relying on it.
