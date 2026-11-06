@@ -7,6 +7,7 @@ Purpose: disposable LLM-built prototype of the gridforge idea.
 | file | what it has |
 |------|-------------|
 | `context.md` | rules and one-line purpose per source file |
+| `conventions.md` | key gridforge principles: headless first, core and Studio apart |
 | `src/kernel.ts` | gridforge time re-export, PPQ 960 |
 | `~/gridforge/ideas/vision.md` | the idea this prototype tests (read only) |
 | `~/gridforge-studio-slots.md` | Studio slot and mod contract |
