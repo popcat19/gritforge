@@ -9,6 +9,23 @@ Purpose: live state and intent of gritforge. Read first in any new session or de
 - Gritforge is a sandbox. Gridforge is hand-written later from `findings.md`.
 - Keep it simple until a beat can be written as plain data and heard.
 
+## Non-goals
+
+- A DAW. A Studio UI. A plugin host. A gridforge replacement.
+
+## Done when
+
+- A beat is written as JSON, rendered by CLI, and heard.
+- Every kernel contract in `findings.md` is hand-written in gridforge.
+
+## Slice gate
+
+- A slice must serve Intent or close an Open item in `findings.md`. Otherwise it goes to Parked.
+
+## Retire when
+
+- Gridforge passes the gritforge tests with unchanged modules. Archive gritforge. Keep `findings.md`.
+
 ## Now
 
 | area | state |

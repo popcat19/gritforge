@@ -47,6 +47,7 @@ src/chop-cli.ts                # amen chop demo to out-amen.wav
 - One kernel-backed slice per round. Tests first.
 - No layout until the user picks one. UI follows PMD at `~/project-minimalist-design`.
 - Findings go to the docs as decisions. Code never merges into gridforge.
+- Check the slice gate and non-goals in `status.md` before each slice.
 - Update `status.md` Now and Next in every slice commit.
 - Dev rules: dev-mini. Commits: `type(scope): verb summary`, lowercase, no period.
 
