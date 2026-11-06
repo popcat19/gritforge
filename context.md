@@ -4,6 +4,7 @@ Disposable LLM-built prototype of the gridforge idea. Gridforge stays hand-writt
 
 Rules: grow one kernel-backed slice per round. No layout until the user picks it. PMD applies to any UI.
 
+- `findings.md`: Purpose: decisions from gritforge in the order to rewrite them by hand in gridforge.
 - `conventions.md`: Purpose: key gridforge principles this prototype follows, including headless first.
 - `src/kernel.ts`: Purpose: re-export gridforge time functions, set PPQ 960.
 - `src/pattern.ts`: Purpose: immutable Pattern and Note operations in ticks.
