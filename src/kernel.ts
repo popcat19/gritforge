@@ -1,2 +1,2 @@
-export { ticksToSeconds, secondsToSample } from "../vendor/gridforge/time.ts";
+export { ticksToSeconds, secondsToSample } from "../../gridforge/time.ts";
 export const PPQ = 960;

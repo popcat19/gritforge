@@ -23,7 +23,7 @@ bun run render
 ## Source layout
 
 ```
-src/kernel.ts      # re-export from vendor/gridforge (symlink to ~/gridforge)
+src/kernel.ts      # re-export from ../../gridforge/time.ts
 src/pattern.ts     # immutable Pattern and Note ops, ticks
 src/schedule.ts    # pattern to sample events via kernel
 src/render.ts      # sine voice, 16-bit WAV
@@ -42,7 +42,7 @@ src/render-cli.ts  # demo chord to out.wav
 
 ## Sync
 
-New device: clone, then `ln -s <path-to-gridforge> vendor/gridforge && bun install`.
+New device: clone gritforge next to gridforge, then `bun install`.
 
 ## Deploy
 
