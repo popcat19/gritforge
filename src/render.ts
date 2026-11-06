@@ -1,15 +1,16 @@
 import type { Event } from "./schedule.ts";
+import { sine, type Voice } from "./voice.ts";
 
 const hz = (midi: number) => 440 * 2 ** ((midi - 69) / 12);
 
-export function render(events: Event[], totalSamples: number, sampleRate: number): Float32Array {
+export function render(events: Event[], totalSamples: number, sampleRate: number, voice: Voice = sine): Float32Array {
 	const out = new Float32Array(totalSamples);
 	const fade = Math.round(sampleRate * 0.005);
 	for (const e of events) {
 		const f = hz(e.pitch), len = e.endSample - e.startSample;
 		for (let i = 0; i < len && e.startSample + i < totalSamples; i++) {
 			const env = Math.min(1, i / fade, (len - i) / fade);
-			out[e.startSample + i] += 0.2 * env * Math.sin((2 * Math.PI * f * i) / sampleRate);
+			out[e.startSample + i] += 0.2 * env * voice(f, i, sampleRate);
 		}
 	}
 	return out;
