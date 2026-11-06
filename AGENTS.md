@@ -43,3 +43,8 @@ src/render-cli.ts  # demo chord to out.wav
 ## Sync
 
 New device: clone, then `ln -s <path-to-gridforge> vendor/gridforge && bun install`.
+
+## Deploy
+
+Remote: GitHub `popcat19/gritforge`. Push to `main` deploys `site/` via `.github/workflows/pages.yml`.
+CI has no `vendor/gridforge`. Build into `site/` locally and commit, or vendor the kernel before CI builds.
