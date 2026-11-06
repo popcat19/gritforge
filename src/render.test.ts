@@ -40,3 +40,18 @@ test("render uses the supplied voice", () => {
 	const out = render([{ startSample: 0, endSample: 1000, pitch: 69 }], 1000, SR, dc);
 	expect(out[500]).toBeCloseTo(0.2, 6);
 });
+
+test("render passes offset, rate and reverse to the voice with defaults", () => {
+	const seen: unknown[] = [];
+	const spy: Voice = (_f, _i, _sr, ctx) => (seen.push(ctx), 0);
+	render([{ startSample: 0, endSample: 2, pitch: 69 }], 2, SR, spy);
+	render([{ startSample: 0, endSample: 1, pitch: 69, offset: 0.25, rate: 2, reverse: true }], 1, SR, spy);
+	expect(seen[0]).toEqual({ offset: 0, rate: 1, reverse: false });
+	expect(seen.at(-1)).toEqual({ offset: 0.25, rate: 2, reverse: true });
+});
+
+test("render scales a note by velocity", () => {
+	const dc: Voice = () => 1;
+	const out = render([{ startSample: 0, endSample: 1000, pitch: 69, velocity: 0.5 }], 1000, SR, dc);
+	expect(out[500]).toBeCloseTo(0.1, 6);
+});

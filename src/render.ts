@@ -8,9 +8,11 @@ export function render(events: Event[], totalSamples: number, sampleRate: number
 	const fade = Math.round(sampleRate * 0.005);
 	for (const e of events) {
 		const f = hz(e.pitch), len = e.endSample - e.startSample;
+		const ctx = { offset: e.offset ?? 0, rate: e.rate ?? 1, reverse: e.reverse ?? false };
+		const vel = e.velocity ?? 1;
 		for (let i = 0; i < len && e.startSample + i < totalSamples; i++) {
 			const env = Math.min(1, i / fade, (len - i) / fade);
-			out[e.startSample + i] += 0.2 * env * voice(f, i, sampleRate);
+			out[e.startSample + i] += 0.2 * env * vel * voice(f, i, sampleRate, ctx);
 		}
 	}
 	return out;

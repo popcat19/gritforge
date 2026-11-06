@@ -2,6 +2,12 @@
 	"name": "gritforge",
 	"type": "module",
 	"private": true,
-	"scripts": { "test": "bun test ./src", "render": "bun run src/render-cli.ts" },
-	"devDependencies": { "@types/bun": "latest" }
+	"scripts": {
+		"test": "bun test ./src",
+		"render": "bun run src/render-cli.ts",
+		"chop": "bun run src/chop-cli.ts"
+	},
+	"devDependencies": {
+		"@types/bun": "latest"
+	}
 }
