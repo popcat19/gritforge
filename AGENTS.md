@@ -15,7 +15,7 @@ Purpose: disposable LLM-built prototype of the gridforge idea.
 
 ```bash
 bun install
-bun test
+bun test ./src
 bunx tsc -p .
 bun run render
 ```
