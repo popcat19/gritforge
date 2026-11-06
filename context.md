@@ -8,6 +8,9 @@ Rules: grow one kernel-backed slice per round. No layout until the user picks it
 - `src/pattern.ts`: Purpose: immutable Pattern and Note operations in ticks.
 - `src/schedule.ts`: Purpose: pattern to sample-position events via kernel time.
 - `src/voice.ts`: Purpose: Voice slot type, sine and polyBLEP saw voices, stack (detune layers) and distort (tanh) combinators.
+- `src/modules/voice-module.ts`: Purpose: VoiceModule manifest (id, kind, declared params with min/max/default, create), defaults and instantiate with clamping.
+- `src/modules/builtin-voices.ts`: Purpose: sine and saw-lead modules and the voiceModules list.
+- `src/modules/voice-module.test.ts`: Purpose: manifest contract tests.
 - `src/voice.test.ts`: Purpose: tests for saw, stack beating, and distort range.
 - `src/render.ts`: Purpose: voice-driven renderer with envelope and 16-bit WAV encoder.
 - `site/index.html`: Purpose: Pages root, placeholder.
