@@ -7,7 +7,8 @@ Rules: grow one kernel-backed slice per round. No layout until the user picks it
 - `src/kernel.ts`: Purpose: re-export gridforge time functions, set PPQ 960.
 - `src/pattern.ts`: Purpose: immutable Pattern and Note operations in ticks.
 - `src/schedule.ts`: Purpose: pattern to sample-position events via kernel time.
-- `src/voice.ts`: Purpose: Voice slot type (freq, sample index, rate to sample) and the sine voice.
+- `src/voice.ts`: Purpose: Voice slot type, sine and polyBLEP saw voices, stack (detune layers) and distort (tanh) combinators.
+- `src/voice.test.ts`: Purpose: tests for saw, stack beating, and distort range.
 - `src/render.ts`: Purpose: voice-driven renderer with envelope and 16-bit WAV encoder.
 - `site/index.html`: Purpose: Pages root, placeholder.
 - `.github/workflows/pages.yml`: Purpose: deploy site/ to GitHub Pages.
