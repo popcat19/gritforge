@@ -3,16 +3,18 @@ import { sine, type Voice } from "./voice.ts";
 
 const hz = (midi: number) => 440 * 2 ** ((midi - 69) / 12);
 
-export function render(events: Event[], totalSamples: number, sampleRate: number, voice: Voice = sine): Float32Array {
+export function render(events: Event[], totalSamples: number, sampleRate: number, voice: Voice = sine, opts: { gain?: number } = {}): Float32Array {
 	const out = new Float32Array(totalSamples);
-	const fade = Math.round(sampleRate * 0.005);
+	const gain = opts.gain ?? 0.2;
+	const ramp = (ms: number) => Math.round((sampleRate * ms) / 1000);
 	for (const e of events) {
 		const f = hz(e.pitch), len = e.endSample - e.startSample;
 		const ctx = { offset: e.offset ?? 0, rate: e.rate ?? 1, reverse: e.reverse ?? false };
 		const vel = e.velocity ?? 1;
+		const atk = ramp(e.attackMs ?? 5), rel = ramp(e.releaseMs ?? 5);
 		for (let i = 0; i < len && e.startSample + i < totalSamples; i++) {
-			const env = Math.min(1, i / fade, (len - i) / fade);
-			out[e.startSample + i] += 0.2 * env * vel * voice(f, i, sampleRate, ctx);
+			const env = Math.min(1, atk > 0 ? i / atk : 1, rel > 0 ? (len - i) / rel : 1);
+			out[e.startSample + i] += gain * env * vel * voice(f, i, sampleRate, ctx);
 		}
 	}
 	return out;

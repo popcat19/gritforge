@@ -1,5 +1,6 @@
 import { PPQ, secondsToSample, ticksToSeconds } from "./kernel.ts";
 import { addNote, type Pattern } from "./pattern.ts";
+import { normalize } from "./mix.ts";
 import { render, wav16 } from "./render.ts";
 import { sampleVoice } from "./sample-voice.ts";
 import { schedule } from "./schedule.ts";
@@ -15,7 +16,7 @@ const rnd = (n: number) => ((seed = (seed * 1103515245 + 12345) % 2 ** 31), Math
 
 let p: Pattern = { length: BAR * 4, notes: [] };
 for (let k = 0; k < SLICES; k++) {
-	p = addNote(p, { start: k * (PPQ / 2), length: PPQ / 2, pitch: 60, offset: k / SLICES });
+	p = addNote(p, { start: k * (PPQ / 2), length: PPQ / 2, pitch: 60, offset: k / SLICES, attackMs: 0, releaseMs: 0 });
 }
 for (let step = 0; step < 32; step++) {
 	const start = BAR * 2 + step * (PPQ / 4), slice = rnd(SLICES);
@@ -28,10 +29,14 @@ for (let step = 0; step < 32; step++) {
 			pitch: 60,
 			offset: (slice + (rnd(4) === 0 ? 1 : 0)) / SLICES % 1,
 			rate: rnd(6) === 0 ? 1.5 : 1,
+			velocity: step % 4 === 0 ? 1 : 0.7,
+			attackMs: 0,
+			releaseMs: 2,
 			reverse: rnd(5) === 0,
 		});
 	}
 }
 const total = Math.round(secondsToSample(ticksToSeconds(p.length, PPQ, BPM), SR));
-await Bun.write("out-amen.wav", wav16(render(schedule(p, BPM, SR), total, SR, sampleVoice(amen)), SR));
+const mix = render(schedule(p, BPM, SR), total, SR, sampleVoice(amen), { gain: 1 });
+await Bun.write("out-amen.wav", wav16(normalize(mix, 0.9), SR));
 console.log("out-amen.wav", p.notes.length, "hits", total, "samples");

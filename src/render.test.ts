@@ -55,3 +55,24 @@ test("render scales a note by velocity", () => {
 	const out = render([{ startSample: 0, endSample: 1000, pitch: 69, velocity: 0.5 }], 1000, SR, dc);
 	expect(out[500]).toBeCloseTo(0.1, 6);
 });
+
+test("attackMs 0 starts at full level and default attack ramps from zero", () => {
+	const dc: Voice = () => 1;
+	const hard = render([{ startSample: 0, endSample: 1000, pitch: 69, attackMs: 0 }], 1000, SR, dc);
+	const soft = render([{ startSample: 0, endSample: 1000, pitch: 69 }], 1000, SR, dc);
+	expect(hard[0]).toBeCloseTo(0.2, 6);
+	expect(soft[0]).toBe(0);
+});
+
+test("attackMs and releaseMs set the ramp lengths", () => {
+	const dc: Voice = () => 1;
+	const out = render([{ startSample: 0, endSample: 1000, pitch: 69, attackMs: 10, releaseMs: 10 }], 1000, SR, dc);
+	expect(out[240]).toBeCloseTo(0.1, 6);
+	expect(out[760]).toBeCloseTo(0.1, 6);
+});
+
+test("gain option replaces the 0.2 default", () => {
+	const dc: Voice = () => 1;
+	const out = render([{ startSample: 0, endSample: 1000, pitch: 69 }], 1000, SR, dc, { gain: 0.5 });
+	expect(out[500]).toBeCloseTo(0.5, 6);
+});

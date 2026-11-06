@@ -36,3 +36,13 @@ test("schedule carries chop fields through", () => {
 		startSample: 0, endSample: 24000, pitch: 60, offset: 0.5, rate: 2, reverse: true, velocity: 0.5,
 	});
 });
+
+test("addNote rejects negative envelope times", () => {
+	expect(() => addNote(p, { start: 0, length: 120, pitch: 60, attackMs: -1 })).toThrow(RangeError);
+	expect(() => addNote(p, { start: 0, length: 120, pitch: 60, releaseMs: -1 })).toThrow(RangeError);
+	expect(addNote(p, { start: 0, length: 120, pitch: 60, attackMs: 0, releaseMs: 2 }).notes.length).toBe(1);
+});
+test("schedule carries envelope times through", () => {
+	const q = addNote(p, { start: 0, length: 960, pitch: 60, attackMs: 0, releaseMs: 12 });
+	expect(schedule(q, 120, 48000)[0]).toMatchObject({ attackMs: 0, releaseMs: 12 });
+});

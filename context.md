@@ -15,6 +15,8 @@ Rules: grow one kernel-backed slice per round. No layout until the user picks it
 - `src/wav-read.ts`: Purpose: decode 16-bit PCM WAV to mono float with its sample rate.
 - `src/sample-voice.ts`: Purpose: Voice that plays a WAV buffer from a fractional offset, with rate and reverse.
 - `src/chop-cli.ts`: Purpose: demo that chops samples/cw_amen02_165.wav (gitignored) to out-amen.wav.
+- `src/mix.ts`: Purpose: mix-level ops on rendered buffers, starting with peak normalize.
+- `src/mix.test.ts`: Purpose: normalize tests.
 - `src/voice.test.ts`: Purpose: tests for saw, stack beating, and distort range.
 - `src/render.ts`: Purpose: voice-driven renderer with envelope and 16-bit WAV encoder.
 - `site/index.html`: Purpose: Pages root, placeholder.

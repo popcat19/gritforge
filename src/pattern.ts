@@ -6,6 +6,8 @@ export type Note = {
 	rate?: number;
 	reverse?: boolean;
 	velocity?: number;
+	attackMs?: number;
+	releaseMs?: number;
 };
 export type Pattern = { length: number; notes: Note[] };
 
@@ -14,6 +16,7 @@ export function addNote(p: Pattern, n: Note): Pattern {
 		throw new RangeError("note outside pattern");
 	if (n.offset !== undefined && (n.offset < 0 || n.offset >= 1)) throw new RangeError("offset outside 0..1");
 	if (n.rate !== undefined && n.rate <= 0) throw new RangeError("rate must be positive");
+	if ((n.attackMs ?? 0) < 0 || (n.releaseMs ?? 0) < 0) throw new RangeError("envelope time must not be negative");
 	if (n.velocity !== undefined && (n.velocity < 0 || n.velocity > 1)) throw new RangeError("velocity outside 0..1");
 	return { ...p, notes: [...p.notes, n].sort((a, b) => a.start - b.start || a.pitch - b.pitch) };
 }

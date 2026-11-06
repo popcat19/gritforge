@@ -9,6 +9,8 @@ export type Event = {
 	rate?: number;
 	reverse?: boolean;
 	velocity?: number;
+	attackMs?: number;
+	releaseMs?: number;
 };
 
 export function schedule(p: Pattern, bpm: number, sampleRate: number): Event[] {
@@ -20,5 +22,7 @@ export function schedule(p: Pattern, bpm: number, sampleRate: number): Event[] {
 		...(n.rate !== undefined && { rate: n.rate }),
 		...(n.reverse !== undefined && { reverse: n.reverse }),
 		...(n.velocity !== undefined && { velocity: n.velocity }),
+		...(n.attackMs !== undefined && { attackMs: n.attackMs }),
+		...(n.releaseMs !== undefined && { releaseMs: n.releaseMs }),
 	}));
 }
