@@ -1,0 +1,27 @@
+import type { Event } from "./schedule.ts";
+
+const hz = (midi: number) => 440 * 2 ** ((midi - 69) / 12);
+
+export function render(events: Event[], totalSamples: number, sampleRate: number): Float32Array {
+	const out = new Float32Array(totalSamples);
+	const fade = Math.round(sampleRate * 0.005);
+	for (const e of events) {
+		const f = hz(e.pitch), len = e.endSample - e.startSample;
+		for (let i = 0; i < len && e.startSample + i < totalSamples; i++) {
+			const env = Math.min(1, i / fade, (len - i) / fade);
+			out[e.startSample + i] += 0.2 * env * Math.sin((2 * Math.PI * f * i) / sampleRate);
+		}
+	}
+	return out;
+}
+
+export function wav16(pcm: Float32Array, sampleRate: number): Uint8Array {
+	const b = new DataView(new ArrayBuffer(44 + pcm.length * 2));
+	const s = (o: number, t: string) => [...t].forEach((c, i) => b.setUint8(o + i, c.charCodeAt(0)));
+	s(0, "RIFF"); b.setUint32(4, 36 + pcm.length * 2, true); s(8, "WAVEfmt ");
+	b.setUint32(16, 16, true); b.setUint16(20, 1, true); b.setUint16(22, 1, true);
+	b.setUint32(24, sampleRate, true); b.setUint32(28, sampleRate * 2, true);
+	b.setUint16(32, 2, true); b.setUint16(34, 16, true); s(36, "data"); b.setUint32(40, pcm.length * 2, true);
+	pcm.forEach((v, i) => b.setInt16(44 + i * 2, Math.max(-1, Math.min(1, v)) * 32767, true));
+	return new Uint8Array(b.buffer);
+}
