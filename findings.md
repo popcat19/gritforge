@@ -35,6 +35,8 @@ Stop after any row. Each row works alone.
 - **Command layer.** `addNote` and `removeNote` are proto-commands. No names, no log, no undo.
 - **960 vs 1360 PPQ.** Not tested here. All timing assumes 960.
 - **Where do modules ship.** Same repo as the renderer here. Whether kernel and Studio mods ship together is undecided.
+- **Crash recovery.** Synth and watchdog must be separate PIDs. A synth crash does not kill the watchdog. Browser constraints: Web Audio runs in the page process, no fork. Worklet or shared worker only, same PID.
+- **Data safety.** Project state is immutable data, not process memory. Writes are atomic (temp + rename). Every save appends a revision, never overwrites. A fault loses at most the current edit.
 
 ## Not worth porting
 
