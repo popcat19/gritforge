@@ -5,8 +5,8 @@ Purpose: live state and intent of gritforge. Read first in any new session or de
 ## Intent
 
 - Make beats with better textures than BeepBox derivatives. No full DAW to learn.
+- Gritforge is the real tool. Gridforge is the hand-written reimpl hobby, optional.
 - Test the gridforge idea: small kernel, modules fill the rest, headless first.
-- Gritforge is a sandbox. Gridforge is hand-written later from `findings.md`.
 - Keep it simple until a beat can be written as plain data and heard.
 
 ## Non-goals
@@ -25,6 +25,7 @@ Purpose: live state and intent of gritforge. Read first in any new session or de
 ## Retire when
 
 - Gridforge passes the gritforge tests with unchanged modules. Archive gritforge. Keep `findings.md`.
+- Or: gritforge becomes the jukebox-exp modular successor and gridforge stays a hobby.
 
 ## Now
 
