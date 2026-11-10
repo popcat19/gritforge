@@ -1,3 +1,4 @@
+import { fm } from "../fm-voice.ts";
 import { distort, saw, sine, stack } from "../voice.ts";
 import type { VoiceModule } from "./voice-module.ts";
 
@@ -22,4 +23,15 @@ export const sawLeadModule: VoiceModule = {
 	create: (v) => distort(stack(saw, spreadCents(v.layers!, v.spreadCents!)), v.drive!),
 };
 
-export const voiceModules: VoiceModule[] = [sineModule, sawLeadModule];
+export const fmModule: VoiceModule = {
+	id: "fm",
+	kind: "voice",
+	params: [
+		{ id: "carrierRatio", label: "CarrierRatio", min: 0.1, max: 8, default: 1 },
+		{ id: "modRatio", label: "ModRatio", min: 0.1, max: 8, default: 2 },
+		{ id: "modIndex", label: "ModIndex", min: 0, max: 20, default: 5 },
+	],
+	create: (v) => fm(v.carrierRatio!, v.modRatio!, v.modIndex!),
+};
+
+export const voiceModules: VoiceModule[] = [sineModule, sawLeadModule, fmModule];
