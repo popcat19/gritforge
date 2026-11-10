@@ -19,6 +19,8 @@ Rules: grow one kernel-backed slice per round. No layout until the user picks it
 - `src/chop-cli.ts`: Purpose: demo that chops samples/cw_amen02_165.wav (gitignored) to out-amen.wav.
 - `src/mix.ts`: Purpose: mix-level ops on rendered buffers, starting with peak normalize.
 - `src/mix.test.ts`: Purpose: normalize tests.
+- `src/mix-distort.ts`: Purpose: mix-level tanh distortion on a rendered buffer, new buffer out.
+- `src/mix-distort.test.ts`: Purpose: distortMix tests for change, harmonics, purity, and silence.
 - `src/voice.test.ts`: Purpose: tests for saw, stack beating, and distort range.
 - `src/render.ts`: Purpose: voice-driven renderer with envelope and 16-bit WAV encoder.
 - `site/index.html`: Purpose: Pages root, placeholder.
