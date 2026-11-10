@@ -5,7 +5,8 @@
 	"scripts": {
 		"test": "bun test ./src",
 		"render": "bun run src/render-cli.ts",
-		"chop": "bun run src/chop-cli.ts"
+		"chop": "bun run src/chop-cli.ts",
+		"render:project": "bun run src/render-project-cli.ts"
 	},
 	"devDependencies": {
 		"@types/bun": "latest"

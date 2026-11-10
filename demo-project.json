@@ -1,0 +1,26 @@
+{
+  "format": "gritforge-project",
+  "version": 1,
+  "tempo": 128,
+  "tracks": [
+    {
+      "voice": { "moduleId": "sine", "params": {} },
+      "pattern": {
+        "length": 960,
+        "notes": [
+          { "start": 0, "length": 480, "pitch": 60 },
+          { "start": 480, "length": 480, "pitch": 64 }
+        ]
+      }
+    },
+    {
+      "voice": { "moduleId": "saw-lead", "params": { "layers": 4, "spreadCents": 12, "drive": 4 } },
+      "pattern": {
+        "length": 960,
+        "notes": [
+          { "start": 0, "length": 960, "pitch": 57 }
+        ]
+      }
+    }
+  ]
+}
