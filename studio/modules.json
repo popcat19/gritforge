@@ -1,0 +1,41 @@
+[
+  {
+    "id": "sine",
+    "kind": "voice",
+    "defaultValues": {},
+    "params": []
+  },
+  {
+    "id": "saw-lead",
+    "kind": "voice",
+    "defaultValues": {
+      "layers": 4,
+      "spreadCents": 12,
+      "drive": 4
+    },
+    "params": [
+      {
+        "id": "layers",
+        "label": "Layers",
+        "min": 1,
+        "max": 8,
+        "default": 4,
+        "integer": true
+      },
+      {
+        "id": "spreadCents",
+        "label": "SpreadCents",
+        "min": 0,
+        "max": 50,
+        "default": 12
+      },
+      {
+        "id": "drive",
+        "label": "Drive",
+        "min": 0.1,
+        "max": 20,
+        "default": 4
+      }
+    ]
+  }
+]

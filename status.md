@@ -50,6 +50,13 @@ Then, in order: FM voice, mix-level distortion. Nothing else until a beat plays 
 
 Stateful voices, sidechain, command layer, undo, 960 vs 1360 PPQ test, Studio UI, spaced repetition deck, flake for the render CLI. Detail in `findings.md` under Open.
 
+## Studio modules (Penpot)
+
+- `studio/modules-spec.md`: component contract mapping ParamSpec to controls
+- `studio/emit-modules.ts`: emits `studio/modules.json` from the registry
+- `studio/modules.json`: current manifest, Penpot plugin input
+- Next: Penpot plugin reads modules.json, creates component instances
+
 ## Resume on a new device
 
 ```bash
