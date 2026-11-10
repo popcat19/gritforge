@@ -37,6 +37,8 @@ Stop after any row. Each row works alone.
 - **Where do modules ship.** Same repo as the renderer here. Whether kernel and Studio mods ship together is undecided.
 - **Crash recovery.** Synth and watchdog must be separate PIDs. A synth crash does not kill the watchdog. Browser constraints: Web Audio runs in the page process, no fork. Worklet or shared worker only, same PID.
 - **Data safety.** Project state is immutable data, not process memory. Writes are atomic (temp + rename). Every save appends a revision, never overwrites. A fault loses at most the current edit.
+- **DSP primitives.** Physical modeling (Karplus-Strong, waveguide) needs delay, filter, feedback. Current primitives: sine, saw, FM, sample. Add delay/filter for acoustic presets.
+- **Presets.** JSON param combinations on existing modules. Genre scope: tech (synthwave, IDM, glitch), acoustic (plucked, mallet, wind). Presets are data, not code.
 
 ## Not worth porting
 

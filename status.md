@@ -31,21 +31,22 @@ Purpose: live state and intent of gritforge. Read first in any new session or de
 
 | area | state |
 |------|-------|
-| Voices | sine, polyBLEP saw, detune stack, tanh distort, sample playback |
+| Voices | sine, polyBLEP saw, FM, detune stack, tanh distort, sample playback |
 | Note fields | offset, rate, reverse, velocity, attackMs, releaseMs |
-| Render | gain option, per-note envelope, peak normalize |
-| Modules | VoiceModule manifest with declared params. sine and saw-lead built in |
-| Demos | `bun run render` chord. `bun run chop` amen chops at 165 BPM |
-| Docs | `conventions.md`, `findings.md`, render pipeline page in `~/.agent/diagrams/` |
+| Render | gain option, per-note envelope, peak normalize, mix-level distortion |
+| Modules | VoiceModule manifest with declared params. sine, saw-lead, fm built in |
+| Project | schema v1, JSON round trip, forward compatible |
+| Demos | `bun run render` chord. `bun run chop` amen chops. `bun run render:project` from JSON |
+| Docs | `conventions.md`, `findings.md`, `studio/modules-spec.md`, render pipeline page in `~/.agent/diagrams/` |
 
 Verify: `bun test ./src` and `bunx tsc -p .`. Unpushed work: `git log origin/main..HEAD`.
 
 ## Next
 
-1. Project file: JSON with tempo, tracks (voice module and params), patterns, notes.
-2. `render` CLI that reads it. Replaces the inline demo scripts.
-
-Then, in order: FM voice, mix-level distortion. Nothing else until a beat plays from JSON.
+1. Penpot plugin: read `studio/modules.json`, create component instances.
+2. NaN/inf checks after render slots.
+3. Stateful voices (for physical modeling, feedback).
+4. Preset schema (JSON param combinations for genres).
 
 ## Parked
 
