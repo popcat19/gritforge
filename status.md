@@ -37,16 +37,18 @@ Purpose: live state and intent of gritforge. Read first in any new session or de
 | Modules | VoiceModule manifest with declared params. sine, saw-lead, fm built in |
 | Project | schema v1, JSON round trip, forward compatible |
 | Demos | `bun run render` chord. `bun run chop` amen chops. `bun run render:project` from JSON |
-| Docs | `conventions.md`, `findings.md`, `studio/modules-spec.md`, render pipeline page in `~/.agent/diagrams/` |
+| Docs | `conventions.md`, `findings.md`, `studio/modules-spec.md`, `studio/workflow-intents.md`, render pipeline page in `~/.agent/diagrams/` |
+| Studio intents | brainstorm draft: intents, sine+noise builtins, node components, item-level sharing, declarative config |
 
 Verify: `bun test ./src` and `bunx tsc -p .`. Unpushed work: `git log origin/main..HEAD`.
 
 ## Next
 
-1. Penpot plugin: read `studio/modules.json`, create component instances.
-2. NaN/inf checks after render slots.
-3. Stateful voices (for physical modeling, feedback).
-4. Preset schema (JSON param combinations for genres).
+1. Settle open questions in `studio/workflow-intents.md` before drafting modules.
+2. Penpot plugin: read `studio/modules.json`, create component instances.
+3. NaN/inf checks after render slots.
+4. Stateful voices (for physical modeling, feedback).
+5. Preset schema (JSON param combinations for genres).
 
 ## Parked
 

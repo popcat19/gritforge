@@ -26,3 +26,4 @@ Rules: grow one kernel-backed slice per round. No layout until the user picks it
 - `site/index.html`: Purpose: Pages root, placeholder.
 - `.github/workflows/pages.yml`: Purpose: deploy site/ to GitHub Pages.
 - `src/render-cli.ts`: Purpose: render a demo chord to out.wav.
+- `studio/workflow-intents.md`: Purpose: session-agnostic brainstorm of what Studio is for, before any module drafting. LLM-built.
