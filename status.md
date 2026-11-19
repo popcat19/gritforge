@@ -44,7 +44,7 @@ Verify: `bun test ./src` and `bunx tsc -p .`. Unpushed work: `git log origin/mai
 
 ## Next
 
-1. Settle open questions in `studio/workflow-intents.md` before drafting modules.
+1. Settle open questions in `studio/workflow-intents.md` before drafting modules. Every module passes `studio/mobile-ux-gates.md`.
 2. Penpot plugin: read `studio/modules.json`, create component instances.
 3. NaN/inf checks after render slots.
 4. Stateful voices (for physical modeling, feedback).

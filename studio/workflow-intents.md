@@ -26,6 +26,30 @@ Related: Studio slots draft (`~/syncthing-shared/gridforge-studio-slots.md`), `f
 - Keyboard, gamepad and handheld touch have equal priority. Handheld is core, not a port.
 - Every command reachable from each input. Keys printed on controls (slots rule 2).
 - Touch hit regions 44 px or more. No state shown only on hover.
+- See `mobile-ux-gates.md` for ten design gates that keep modules usable on handheld without compromising desktop power.
+
+### Layers
+
+Five input layers work on the same grid. Context and held modifiers determine which one applies.
+
+| layer | keyboard | gamepad | touch | use |
+|-------|----------|---------|-------|-----|
+| Arrows | arrow keys | d-pad | swipe | move one cell |
+| 3×3 jump | `q w e / a s d / z x c` (held) | 8-way stick (held) | 8 chips (long-press) | jump to nearest note in direction |
+| Tracker entry | `z s x d c v ...` | A+d-pad | on-screen piano or 12-key grid | place note at pitch, no nav |
+| Command | Space, `i`, `d`, `:` | A, B, X, Y, Start | tap control or palette | trigger named command |
+| Modifier | Shift, Ctrl | L/R shoulder | sticky-key toggle or hold | show hints, change tap behavior |
+
+**3×3 proximity jump:**
+```
+7 ↖  8 ↑  9 ↗        nearest note in each octant
+4 ←  5 ●  6 →        5 = act on focus
+1 ↙  2 ↓  3 ↘
+```
+Targets the **nearest note** in each direction. Chips appear only while the jump modifier is held, so jump letters coexist with tracker pitch entry. Empty directions fall back to a boundary (next bar, next octave).
+
+**Tracker entry, BeepBox view:**
+Piano-layout keys (`z s x d c` for C, C#, D, D#, E) place notes at the cursor without vertical navigation. The `q` row enters the octave above the `z` row (FT2 model). A separate key pair shifts the base octave. Gamepad: hold A, d-pad adjusts pitch (up/down semitone, left/right octave). The BeepBox grid with scale rows and tonic emphasis stays as the **view**.
 
 ## Builtins
 
@@ -124,7 +148,32 @@ Open: how UI edits reach the file.
 | overlay + promote | UI writes `local.json`. Promote moves keys into `studio.json`. Leaning this way |
 | read-only | UI points at the key. Fights explore-first |
 
+## References
+
+### osu!lazer
+
+Fair to learn from. Rulesets (osu!, taiko, catch, mania) are separate play modes over one shared beatmap and timing model, which matches the gridforge module idea.
+
+Take:
+- Ruleset contract as a reference for one data model serving several editors.
+- Beat snap divisor: one control with 1/1, 1/2, 1/3, 1/4, 1/6, 1/8, 1/12, 1/16 and color-coded ticks. Triplets are first-class.
+- Mod select: flat tile grid with a hotkey per tile, no nesting (slots rule 2).
+- Settings: one searchable sidebar list in place of nested dialogs.
+- Timeline pair: summary strip over a zoomed timeline (Overview slot).
+- Skin layout editor: drag components into on-screen slots (Studio slot and mod idea).
+
+Avoid:
+- Dense desktop-first editor with right-click menus and small timeline targets. Mobile builds inherit it.
+- State behind hover and tooltips (fails gate 2).
+- Copying screens. The editor is still changing, so take principles only.
+
+### BeepBox
+
+Reuse the pattern grid only: scale rows, rhythm steps, tonic emphasis. The arranger stays open (see below).
+
 ## Open questions
+
+- Clips workflow: bar cells or free clips. The slots draft treats bar cells as snapped free clips with the same data. Revisit after writing one song from scratch in Studio. Until then the 3×3 jump also runs on the arranger, targeting the nearest filled cell.
 
 - Import default: copy-in (updates listed) or live link (updates applied until fork).
 - Code items shareable from the start, or data items first.

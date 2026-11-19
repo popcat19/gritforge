@@ -27,3 +27,4 @@ Rules: grow one kernel-backed slice per round. No layout until the user picks it
 - `.github/workflows/pages.yml`: Purpose: deploy site/ to GitHub Pages.
 - `src/render-cli.ts`: Purpose: render a demo chord to out.wav.
 - `studio/workflow-intents.md`: Purpose: session-agnostic brainstorm of what Studio is for, before any module drafting. LLM-built.
+- `studio/mobile-ux-gates.md`: Purpose: ten design gates every Studio module passes to stay usable on handheld and touch. LLM-built.
