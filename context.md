@@ -42,4 +42,4 @@ Rules: grow one kernel-backed slice per round. No layout until the user picks it
 - `studio/workflow-intents.md`: Purpose: session-agnostic brainstorm of what Studio is for, before any module drafting. LLM-built.
 - `studio/mobile-ux-gates.md`: Purpose: ten design gates every Studio module passes to stay usable on handheld and touch. LLM-built.
 - `site/index.html`: Purpose: Pages root, placeholder.
-- `.github/workflows/pages.yml`: Purpose: deploy site/ to GitHub Pages.
+- `.github/workflows/pages.yml`: Purpose: manual-only (`workflow_dispatch`) workflow to deploy site/ to GitHub Pages; push trigger disabled.

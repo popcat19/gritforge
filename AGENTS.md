@@ -65,5 +65,5 @@ New device: clone gritforge next to gridforge, then `bun install`.
 
 ## Deploy
 
-Remote: GitHub `popcat19/gritforge`. Push to `main` deploys `site/` via `.github/workflows/pages.yml`.
+Remote: GitHub `popcat19/gritforge`. Pages workflow (`.github/workflows/pages.yml`) is manual (`workflow_dispatch`) only; push CI is disabled.
 CI has no ../gridforge checkout. Build into `site/` locally and commit, or vendor the kernel before CI builds.
