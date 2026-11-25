@@ -5,6 +5,7 @@ Disposable LLM-built prototype of the gridforge idea. Gridforge stays hand-writt
 Rules: grow one kernel-backed slice per round. No layout until the user picks it. PMD applies to any UI.
 
 - `status.md`: Purpose: live state, intent, next step, and resume steps for any new session or device.
+- `roadmap.md`: Purpose: living milestone tracker with 1 Core + 1 Studio WIP cap, proof-of-done gates, and Icebox unlock triggers.
 - `findings.md`: Purpose: decisions from gritforge in the order to rewrite them by hand in gridforge.
 - `conventions.md`: Purpose: key gridforge principles this prototype follows, including headless first.
 - `src/kernel.ts`: Purpose: re-export gridforge time functions, set PPQ 960.

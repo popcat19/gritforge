@@ -7,6 +7,7 @@ Purpose: disposable LLM-built prototype of the gridforge idea.
 | file | what it has |
 |------|-------------|
 | `status.md` | live state, next step, resume steps. Read first |
+| `roadmap.md` | living milestone tracker, WIP cap, Icebox triggers |
 | `context.md` | rules and one-line purpose per source file |
 | `findings.md` | decisions in port order for hand-writing gridforge |
 | `conventions.md` | key gridforge principles: headless first, core and Studio apart |
@@ -54,8 +55,8 @@ studio/                        # module spec, emitter, workflow intents, mobile 
 - One kernel-backed slice per round. Tests first.
 - No layout until the user picks one. UI follows PMD at `~/project-minimalist-design`.
 - Findings go to the docs as decisions. Code never merges into gridforge.
-- Check the slice gate and non-goals in `status.md` before each slice.
-- Update `status.md` Now and Next in every slice commit.
+- Check the slice gate in `status.md` and WIP cap in `roadmap.md` before each slice.
+- Update `status.md` and `roadmap.md` in lockstep in every slice commit.
 - Dev rules: dev-mini. Commits: `type(scope): verb summary`, lowercase, no period.
 
 ## Sync

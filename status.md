@@ -25,7 +25,7 @@ Purpose: live state and intent of gritforge. Read first in any new session or de
 
 ## Slice gate
 
-- A slice must serve Intent or close an Open item in `findings.md`. Otherwise it goes to Parked.
+- A slice must be an Active item in `roadmap.md` (max 1 Core + 1 Studio active), serve Intent, or close an Open item in `findings.md`. Otherwise it goes to Icebox in `roadmap.md`.
 
 ## Retire when
 
@@ -42,22 +42,21 @@ Purpose: live state and intent of gritforge. Read first in any new session or de
 | Modules | VoiceModule manifest with declared params. sine, saw-lead, fm built in |
 | Project | schema v1, JSON round trip, forward compatible |
 | Demos | `bun run render` chord. `bun run chop` amen chops. `bun run render:project` from JSON |
-| Docs | `conventions.md`, `findings.md`, `studio/modules-spec.md`, `studio/workflow-intents.md`, `studio/mobile-ux-gates.md`, render pipeline page in `~/.agent/diagrams/` |
+| Docs | `roadmap.md`, `conventions.md`, `findings.md`, `studio/modules-spec.md`, `studio/workflow-intents.md`, `studio/mobile-ux-gates.md`, render pipeline page in `~/.agent/diagrams/` |
 | Studio intents | wireframe/flowchart work active: desktop + keyboard first (handheld-safe), 3-tier acoustic texture ladder, Gridforge seam alignment |
 
 Verify: `bun test ./src` and `bunx tsc -p .`. Unpushed work: `git log origin/main..HEAD`.
 
 ## Next
 
-1. Settle open questions in `studio/workflow-intents.md` and Studio UX wireframes/flowcharts.
-2. Stateless acoustic voices (`noise` and closed-form `modal` / ratio-harmonic bank) in `src/voice.ts`.
-3. Penpot plugin: read `studio/modules.json`, create component instances.
-4. NaN/inf checks after render slots.
-5. Stateful voices (filtered noise, delay, feedback) and preset schema (JSON param combinations + sparse envelopes + pitch/velocity curves).
+Tracked in `roadmap.md` (1 Studio + 1 Core WIP cap, M1 lead):
+
+- **Studio (M1):** settle open questions in `studio/workflow-intents.md` + Studio UX wireframes/flowcharts, then Penpot plugin from `studio/modules.json`.
+- **Core (M2):** stateless `noise` + closed-form `modal` / ratio-harmonic voices in `src/voice.ts`, then NaN/inf render guard and first real textured JSON beat.
 
 ## Parked
 
-Sidechain, command layer, undo, 960 vs 1360 PPQ test, second ruleset and modifiers, WASM/Faust DSP backend (until measurements warrant it), KDL/TOML host loader, offline DDSP sample-to-patch fitter, hash-pinned MIT SoundFont node (`MS Basic.sf2`), Studio sharing/lockfiles, spaced repetition deck, flake for the render CLI. Detail in `findings.md` under Open.
+Full Icebox with unlock triggers lives in `roadmap.md`. Open design questions live in `findings.md`.
 
 ## Studio modules (Penpot)
 
