@@ -16,17 +16,17 @@ Related: Studio slots draft (`~/syncthing-shared/gridforge-studio-slots.md`), `f
 | Annotate | break down a sample or song | markers and sections are data, not drawings |
 | Scaffold | try ideas without losing the old ones | every edit non-destructive, revisions append |
 | DSP flex | build voices from primitives | Septabee-level freedom, explicit wiring |
-| Entry | BeepBox-level first contact | no DAW jargon, one grid, one voice |
-| Textures | build presets from generators and samples | presets are data on existing modules |
-| Ecosystem | share presets, components, mods | blueprint-style shelf, item-level import |
-| Open-ended | no forced workflow | kernel enforces ticks and events only |
+| Entry | BeepBox-level first contact, no hidden menus | no DAW jargon or implicit menus, one grid, one voice, extensible without forking |
+| Textures | build presets from generators, transients, and optional SoundFont | 3-tier ladder: DSP/modal/noise + breaks, 20 ms transient hybrid, optional hash-pinned MIT SoundFont (`MS Basic.sf2`) |
+| Ecosystem | share presets, components, mods | blueprint-style shelf, item-level import (deferred until a second real module proves the seam) |
+| Open-ended | no forced workflow | kernel enforces ticks and events only; UI stays a replaceable client over headless core |
 
 ## Input
 
-- Keyboard, gamepad and handheld touch have equal priority. Handheld is core, not a port.
-- Every command reachable from each input. Keys printed on controls (slots rule 2).
+- **Desktop and keyboard first** (matching `gridforge-studio-slots.md`), with **gamepad and handheld/mobile touch** as a planned path that must not be fundamentally broken.
+- Every command reachable from each input. Keys printed on controls (slots rule 2). No implicit menus hiding core workflow actions.
 - Touch hit regions 44 px or more. No state shown only on hover.
-- See `mobile-ux-gates.md` for ten design gates that keep modules usable on handheld without compromising desktop power.
+- See `mobile-ux-gates.md` for ten design gates that keep desktop-first modules compatible with future handheld and touch use.
 
 ### Layers
 
@@ -66,7 +66,9 @@ Default kit: sine and noise only. Timbre comes from combinators already in `src/
 | Perc | noise, short decay | hat, snare |
 | Breath | sine + noise 0.3 | flute, wind |
 
-Open: the noise voice does not exist yet. Partials need a sine stack with ratios, not detune.
+Open: the noise voice does not exist yet. Partials need a sine stack with ratios (and optional inharmonicity `B`), not detune; closed-form damped modal resonators also fit the current stateless `Voice` contract. Time-varying filtered noise needs stateful voices.
+
+Beyond builtins, acoustic coverage follows the 3-tier ladder in `findings.md` (Decision 10): DSP/modal/noise + break slicing, hybrid ~20 ms attack WAV + modal sustain, and an optional hash-pinned MIT SoundFont node (`MS Basic.sf2`). Real-time and AOT neural instrument synthesis are excluded because they fail real-time polyphony or stall the live loop-tweak workflow. External offline DDSP fitters can still emit plain preset data targeting these params.
 
 ## Node system
 
@@ -93,6 +95,8 @@ Rules:
 Open: auto layout or manual placement, polyphony in kernel or graph, modulation as wires or a matrix, per-node cost display.
 
 ## Sharing
+
+Status: deferred per `ch1-trim.md` ("no new abstraction until a second concrete use") to avoid v0's premature package-manager and lockfile bloat. Keep as target direction only until real modules exist.
 
 Item is the unit. A pack is only a source to browse.
 
@@ -121,6 +125,8 @@ type Item = { id: string; kind: string; origin?: Origin; forkedFrom?: Origin; bo
 Contract versioning: exposed params, inlets and outlets. Add is minor, remove or rename is major. An override on a removed param keeps its value and warns.
 
 ## Declarative config
+
+Status: deferred alongside Sharing until a working Studio shell exists. Keep core format-agnostic (typed plain objects); JSON stays the zero-dep machine format, while KDL or TOML can sit at the host/CLI boundary for human-edited timelines or patches.
 
 Studio state resolves from `studio.json` plus `studio.lock`. Same pair, same Studio on any device.
 

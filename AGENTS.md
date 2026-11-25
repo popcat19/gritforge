@@ -12,7 +12,8 @@ Purpose: disposable LLM-built prototype of the gridforge idea.
 | `conventions.md` | key gridforge principles: headless first, core and Studio apart |
 | `src/kernel.ts` | gridforge time re-export, PPQ 960 |
 | `~/gridforge/ideas/vision.md` | the idea this prototype tests (read only) |
-| `~/gridforge-studio-slots.md` | Studio slot and mod contract |
+| `~/syncthing-shared/gridforge-studio-slots.md` | Studio slot and mod contract |
+| `~/syncthing-shared/Designing Gridforge’s Modular Audio Framework ch1-trim.md` | Gridforge architectural seam mapping and anti-v0-bloat rules |
 
 ## Build
 
@@ -30,13 +31,19 @@ src/kernel.ts                  # re-export from ../../gridforge/time.ts
 src/pattern.ts                 # immutable Pattern and Note ops, ticks
 src/schedule.ts                # pattern to sample events via kernel
 src/voice.ts                   # Voice type, sine, saw, stack, distort
+src/fm-voice.ts                # two-operator FM synthesis voice
 src/sample-voice.ts            # WAV buffer playback voice
 src/render.ts                  # events and voice to buffer, 16-bit WAV
 src/mix.ts                     # buffer ops, peak normalize
+src/mix-distort.ts             # mix-level tanh distortion
 src/wav-read.ts                # 16-bit PCM WAV decode
+src/project.ts                 # serializable project schema v1
+src/render-project.ts          # multi-track project renderer
 src/modules/                   # VoiceModule manifest and built-in voices
 src/render-cli.ts              # demo chord to out.wav
 src/chop-cli.ts                # amen chop demo to out-amen.wav
+src/render-project-cli.ts      # render project JSON to WAV
+studio/                        # module spec, emitter, workflow intents, mobile UX gates
 ```
 
 ## Conventions

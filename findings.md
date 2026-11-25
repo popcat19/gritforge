@@ -25,20 +25,25 @@ Stop after any row. Each row works alone.
 6. **Modules declare params.** `min`, `max`, `default`, optional `integer`. Values clamp. Unknown ids throw. An Inspector fallback is buildable from this alone.
 7. **Voice and note-producing modules differ.** Add a `kind` field so one registry can hold both.
 8. **Studio mods call commands.** Gritforge has no command layer yet. This is the rule, not a result.
+9. **Pipeline seams match Gridforge mapping.** `Raw clip → Ruleset → Modifiers → Schedule (960 PPQ) → Processors → Host`. Gritforge currently covers the right half (`Pattern → Schedule → Voice → Render → Mix → WAV`). Add no new abstraction until a second concrete use (`ch1-trim.md`).
+10. **Three-tier acoustic texture ladder.** (1) Built-in DSP (harmonic bank with ratios/inharmonicity `B`, closed-form damped modal resonators, deterministic noise, stateful filtered noise) plus break slicing (`sample-voice`) cover synths, percussion, breaks, and mallets/plucks; (2) a hybrid ~20 ms transient WAV snippet plus modal/harmonic sustain handles sharp acoustic attacks without large libraries; (3) an optional hash-pinned MIT SoundFont processor (`MS Basic.sf2` via `rustysynth` or FluidSynth) gives GM/orchestral fallback without proprietary blobs. Real-time and AOT neural instrument synthesis are out of scope (latency/polyphony ceiling and loop-tweak stalls).
+11. **Format-agnostic core, pluggable serialization.** Core operates on typed plain objects (`src/project.ts`). JSON stays the zero-dep canonical and machine format (stable key order, sorted notes, one note per line for clean Git diffs). KDL or TOML loaders belong at the host/CLI boundary if human-edited timelines or node graphs need them later.
+12. **TS reference DSP first, WASM/native behind the same seam.** Pure TS/Bun has no real-time deadline for offline render and keeps custom modules zero-toolchain. Swap hot built-in primitives to Rust/WASM or Faust behind `VoiceModule` only when real-time `AudioWorklet` polyphony measurements require SIMD and zero GC pauses.
 
 ## Open
 
-- **Stateful voices.** A stateless voice has no phase memory. A real supersaw starts layers at random phases. A bellows pitch bend needs a control lane. Untested.
-- **Mix FX stage.** `distort` wraps one voice, so chord notes do not intermodulate. Distorting the mix needs a stage after render.
+- **Rulesets and modifiers.** Current `ProjectNote[]` is one static representation. Proving Gridforge's differentiator needs a second ruleset (step grid or pattern text) and one modifier (groove or transpose).
+- **Stateful voices.** A stateless voice has no phase or filter memory. Closed-form modal resonators, ratio harmonics, and hashed noise fit stateless `Voice`, while time-varying filtered noise (breath, snare wires), biquad filterbanks, supersaw random phase, bellows pitch bend, and waveguide delay/feedback need per-note state.
 - **Sidechain.** Kick envelope scales other voices. Needs a mix stage with cross-track input.
-- **Project schema.** No serializable project yet. Demo scripts build patterns inline.
 - **Command layer.** `addNote` and `removeNote` are proto-commands. No names, no log, no undo.
 - **960 vs 1360 PPQ.** Not tested here. All timing assumes 960.
-- **Where do modules ship.** Same repo as the renderer here. Whether kernel and Studio mods ship together is undecided.
+- **Where do modules ship.** Same repo as the renderer here. Whether kernel and Studio mods ship together is undecided. Defer lockfile/registry/pack-sharing machinery until real modules exist (avoid v0 bloat).
 - **Crash recovery.** Synth and watchdog must be separate PIDs. A synth crash does not kill the watchdog. Browser constraints: Web Audio runs in the page process, no fork. Worklet or shared worker only, same PID.
 - **Data safety.** Project state is immutable data, not process memory. Writes are atomic (temp + rename). Every save appends a revision, never overwrites. A fault loses at most the current edit.
-- **DSP primitives.** Physical modeling (Karplus-Strong, waveguide) needs delay, filter, feedback. Current primitives: sine, saw, FM, sample. Add delay/filter for acoustic presets.
-- **Presets.** JSON param combinations on existing modules. Genre scope: tech (synthwave, IDM, glitch), acoustic (plucked, mallet, wind). Presets are data, not code.
+- **DSP primitives.** Current primitives: sine, saw, FM, sample. Stateless next: deterministic noise, closed-form modal resonators, harmonic bank with ratios and inharmonicity `B`. Stateful later: filtered noise, biquad/SVF filter, Karplus-Strong/waveguide delay and feedback.
+- **SoundFont / external processor node.** Optional hash-pinned MIT `MS Basic.sf2` (~51 MB, stored outside Git) rendered via `rustysynth` or FluidSynth for GM/orchestral fallback.
+- **Presets.** Data-only param combinations on existing modules, using sparse envelopes (ADSR or piecewise-linear breakpoints, not frame-by-frame arrays) plus optional `(pitch, velocity) → params` curves to avoid the pitch-shifted toy effect. External offline DDSP fitters (`PyTorch` + MR-STFT/JTFS) can emit these presets without touching core.
+- **UI vs kernel cost.** A responsive piano roll costs more than the audio kernel; keep core headless so external trackers, text editors, or Studio mods act as replaceable input layers.
 
 ## Not worth porting
 
